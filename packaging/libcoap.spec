@@ -6,7 +6,7 @@ Summary: C-Implementation of CoAP
 Group: Development/Libraries
 URL: https://github.com/obgm/libcoap
 Source: %{name}-%{version}.tar.gz
-Patch0: libcoap_build.patch
+#Patch0: libcoap_build.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -25,7 +25,7 @@ C-Implementation of CoAP (devel)
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 %build
 autoreconf --force --verbose --install

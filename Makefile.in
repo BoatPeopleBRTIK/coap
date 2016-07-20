@@ -18,6 +18,9 @@ ETAGS = @ETAGS@
 abs_builddir = @abs_builddir@
 top_builddir = @top_builddir@
 package = @PACKAGE_TARNAME@-@PACKAGE_VERSION@
+prefix = @prefix@
+includerootdir = $(DESTDIR)$(prefix)/include
+librootdir = $(DESTDIR)$(prefix)/lib
 
 # files and flags
 SOURCES:= pdu.c net.c debug.c encode.c uri.c coap_list.c resource.c hashkey.c \
@@ -81,7 +84,7 @@ $(LIB):	$(OBJECTS)
 	$(RANLIB) $@
 
 $(LIBSO):	$(OBJECTS)
-	$(LD) $(LDSOFLAGS) $(LDFLAGS) -o $@ $^
+	$(LD) $(LDSOFLAGS) $(LDFLAGS) -soname libcoap.so --build-id -o $@ $^
 
 clean:
 	@rm -f $(PROGRAM) main.o $(LIB) $(LIBSO) $(OBJECTS)
@@ -103,6 +106,16 @@ dist:	$(FILES) $(SUBDIRS)
 		$(MAKE) -C $$dir dist; \
 	done
 	tar czf $(package).tar.gz $(DISTDIR)
+
+install:
+	test -d $(includerootdir)/libcoap || mkdir -p $(includerootdir)/libcoap
+	test -d $(librootdir) || mkdir -p $(librootdir)
+	cp -r $(HEADERS) $(includerootdir)/libcoap/
+	cp $(LIB) $(librootdir)/
+ifdef BUILD_SO
+	cp $(LIBSO) $(librootdir)/$(LIBSO).@LIBSO_VERSION@
+	test -h $(LIBSO) || ln -s $(LIBSO).@LIBSO_VERSION@ $(librootdir)/$(LIBSO)
+endif
 
 TAGS:	
 	$(ETAGS) -o $@.new $(SOURCES) 
