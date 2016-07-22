@@ -1,6 +1,6 @@
 Name: libcoap
 Version: 4.1.1
-Release: 1
+Release: 1%{?dist}
 License: Dual BSD/GPLv2
 Summary: C-Implementation of CoAP
 Group: Development/Libraries
