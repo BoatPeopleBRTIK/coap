@@ -53,7 +53,7 @@ ifdef BUILD_SO
   endif
   # more platforms go here
   ifndef LIBSO
-    LIBSO=libcoap.so
+    LIBSO=libcoap.so.0
   endif
   ifndef PICFLAG
     CFLAGS+=-fPIC
@@ -84,7 +84,7 @@ $(LIB):	$(OBJECTS)
 	$(RANLIB) $@
 
 $(LIBSO):	$(OBJECTS)
-	$(LD) $(LDSOFLAGS) $(LDFLAGS) -soname libcoap.so --build-id -o $@ $^
+	$(LD) $(LDSOFLAGS) $(LDFLAGS) -soname $(LIBSO)  --build-id -o $@ $^
 
 clean:
 	@rm -f $(PROGRAM) main.o $(LIB) $(LIBSO) $(OBJECTS)
@@ -113,8 +113,9 @@ install:
 	cp -r $(HEADERS) $(includerootdir)/libcoap/
 	cp $(LIB) $(librootdir)/
 ifdef BUILD_SO
-	cp $(LIBSO) $(librootdir)/$(LIBSO).@LIBSO_VERSION@
-	test -h $(LIBSO) || ln -s $(LIBSO).@LIBSO_VERSION@ $(librootdir)/$(LIBSO)
+	cp $(LIBSO) $(librootdir)/$(LIBSO).411
+	test -h $(LIBSO) || ln -s $(LIBSO).411 $(librootdir)/$(LIBSO)
+	test -h $(LIBSO) || ln -s $(LIBSO) $(librootdir)/libcoap.so
 endif
 
 TAGS:	
