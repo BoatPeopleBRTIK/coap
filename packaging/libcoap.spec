@@ -36,6 +36,10 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %make_install
 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS README LICENSE.BSD LICENSE.GPL
