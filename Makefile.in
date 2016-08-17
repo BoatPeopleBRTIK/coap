@@ -84,7 +84,7 @@ $(LIB):	$(OBJECTS)
 	$(RANLIB) $@
 
 $(LIBSO):	$(OBJECTS)
-	$(LD) $(LDSOFLAGS) $(LDFLAGS) -soname $(LIBSO)  --build-id -o $@ $^
+	$(LD) $(LDSOFLAGS) -soname $(LIBSO)  --build-id -o $@ $^
 
 clean:
 	@rm -f $(PROGRAM) main.o $(LIB) $(LIBSO) $(OBJECTS)
