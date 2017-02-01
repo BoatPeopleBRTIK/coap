@@ -20,7 +20,7 @@ top_builddir = @top_builddir@
 package = @PACKAGE_TARNAME@-@PACKAGE_VERSION@
 prefix = @prefix@
 includerootdir = $(DESTDIR)$(prefix)/include
-librootdir = $(DESTDIR)$(prefix)/lib
+librootdir = $(DESTDIR)@libdir@
 
 # files and flags
 SOURCES:= pdu.c net.c debug.c encode.c uri.c coap_list.c resource.c hashkey.c \
